@@ -1,0 +1,19 @@
+#! /bin/bash
+
+printf “Input DATE and TIME, then press [ENTER]\nformat = mmdd hh am/pm [e.g. 0310 05 am]: “
+read “date” “time” “time2”
+printf “Input GAME and press [ENTER]\n”
+read -p “[b=BLACKJACK, r=ROULETTE, t=TEXAS HOLD EM]: “ game
+echo “DATE = $date”
+
+ls ~/Lucky_Duck_Investigations/Roulette_Loss_Investigation/Dealer_Analysis |
+cat “$date”_Dealer_schedule |
+grep “$time”:00:00 |
+grep -iw “$time2” |
+
+Case $game in
+b) awk ‘{print$1,$2,$3,$4}’ ;;
+r) awk ‘{print$1,$2,$5,$6}’ ;;
+t) awk ‘{print$1,$2,$7,$8}’ ;;
+*) echo “Please enter b, r or t.” ;;
+esac
